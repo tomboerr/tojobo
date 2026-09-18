@@ -1,22 +1,33 @@
 :root{
-    --tile: min(60px, calc((100vw - 40px) / 5));
-    --key: min(50px, calc((100vw - 10px) / 10));
+    --gap: 5px;
+    --tile: min(
+        60px,
+        calc((100vw - 40px - 4 * var(--gap)) / 5),
+        calc((46dvh - 5 * var(--gap)) / 6)
+    );
+    --key: min(
+        50px,
+        calc((100vw - 10px - 9 * var(--gap)) / 10),
+        calc((24dvh - 2 * var(--gap)) / 3)
+    );
 }
 
 body{
+    margin: 0;
     font-family: arial, helvetica, sans-serif;
     text-align: center;
     background-color: #ffffff;
 }
 
 hr{
+    margin: 6px auto;
     width: 90%;
     max-width: 500px;
     color: lightgray;
 }
 
 #title{
-    font-size: 36px;
+    font-size: min(36px, 6dvh);
     font-weight: bold;
     letter-spacing: 2px;
     color: #000000;
@@ -28,7 +39,7 @@ hr{
     margin: 3px auto 0;
     display: grid;
     grid-template-columns: repeat(5, var(--tile));
-    gap: 5px;
+    gap: var(--gap);
 }
 
 #keyboard{
@@ -36,8 +47,8 @@ hr{
     margin: 3px auto 0;
     display: flex;
     flex-direction: column;
-    gap: 5px;
-    align-items: center
+    gap: var(--gap);
+    align-items: center;
 }
 
 .row{
@@ -46,13 +57,13 @@ hr{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 5px;
+    gap: var(--gap);
 }
 
 .key{
     box-sizing: border-box;
     border: 2px solid lightgray;
-    width: calc(var(--key)*0.8);
+    width: calc(var(--key)* 0.7);
     height: var(--key);
 
     color:black;
@@ -61,6 +72,11 @@ hr{
     display: flex;
     justify-content: center;
     align-items: center;
+
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .key.wide {
@@ -99,4 +115,9 @@ hr{
     background-color: #808080;
     color: white;
     border-color: white;
+}
+
+@media (max-width: 400px) {
+    :root { --gap: 4px; }
+    .key, .tile { border-width: 1px; }
 }

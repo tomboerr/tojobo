@@ -3,12 +3,12 @@
     --tile: min(
         60px,
         calc((100vw - 40px - 4 * var(--gap)) / 5),
-        calc((52dvh - 5 * var(--gap)) / 6)
+        calc((44dvh - 5 * var(--gap)) / 6)
     );
     --key: min(
         50px,
         calc((100vw - 10px - 9 * var(--gap)) / 10),
-        calc((26dvh - 2 * var(--gap)) / 3)
+        calc((32dvh - 2 * var(--gap)) / 3)
     );
 }
 

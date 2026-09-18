@@ -56,6 +56,13 @@ function initialize() {
     }
 
     document.addEventListener("keyup", (e) => pressKey(e.key))
+
+    document.getElementById("keyboard").addEventListener("click", (e) => {
+        if (!e.target.classList.contains("key")){
+            return;
+        }
+        pressKey(e.target.id);
+    });
 }
 
 function pressKey(key){

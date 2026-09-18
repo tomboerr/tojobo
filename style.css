@@ -1,5 +1,6 @@
 :root{
     --tile: min(60px, calc((100vw - 40px) / 5));
+    --key: min(45px, calc((100vw - 40px) / 10));
 }
 
 body{
@@ -23,10 +24,49 @@ hr{
 
 #board{
     width: fit-content;
+    height: auto;
     margin: 3px auto 0;
     display: grid;
     grid-template-columns: repeat(5, var(--tile));
     gap: 5px;
+}
+
+#keyboard{
+    width: fit-content;
+    margin: 3px auto 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center
+}
+
+.row{
+    width: fit-content;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.key{
+    box-sizing: border-box;
+    border: 2px solid lightgray;
+    width: var(--key);
+    height: var(--key);
+
+    color:black;
+    font-size: calc(var(--key) * 0.6);
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.key.wide {
+    width: calc(var(--key) * 1.5);
+    flex-shrink: 0;
+    font-size: calc(var(--key) * 0.5);
 }
 
 .tile {

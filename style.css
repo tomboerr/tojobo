@@ -84,6 +84,10 @@ hr{
     font-size: calc(var(--key-w) * 0.38);
 }
 
+#Backspace {
+    font-size: calc(var(--key-w) * 0.8);
+}
+
 .tile {
     box-sizing: border-box;
     border: 2px solid lightgray;

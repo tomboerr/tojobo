@@ -5,7 +5,7 @@ var row = 0;
 var col = 0;
 
 var gameOver = false;
-var word = "buero";
+var word = "phase";
 
 var selectWidth = "5px"
 var normalWidth = "2px"

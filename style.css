@@ -5,11 +5,8 @@
         calc((100vw - 40px - 4 * var(--gap)) / 5),
         calc((44dvh - 5 * var(--gap)) / 6)
     );
-    --key: min(
-        50px,
-        calc((100vw - 10px - 9 * var(--gap)) / 10),
-        calc((32dvh - 2 * var(--gap)) / 3)
-    );
+    --key-w: min(50px, calc((100vw - 10px - 9 * var(--gap)) / 10));
+    --key-h: min(58px, calc((32dvh - 2 * var(--gap)) / 3));
 }
 
 body{
@@ -63,11 +60,13 @@ hr{
 .key{
     box-sizing: border-box;
     border: 2px solid lightgray;
-    width: calc(var(--key)* 0.7);
-    height: var(--key);
+    width: var(--key-w);
+    height: var(--key-h);
+    width: var(--key-w);
+    height: var(--key-h);
+    font-size: calc(var(--key-w) * 0.55);
 
     color:black;
-    font-size: calc(var(--key) * 0.6);
     font-weight: bold;
     display: flex;
     justify-content: center;
@@ -80,9 +79,9 @@ hr{
 }
 
 .key.wide {
-    width: calc(var(--key) * 1.5);
+    width: calc(var(--key-w) * 1.5);
     flex-shrink: 0;
-    font-size: calc(var(--key) * 0.5);
+    font-size: calc(var(--key-w) * 0.38);
 }
 
 .tile {

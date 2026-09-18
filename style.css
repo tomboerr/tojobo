@@ -1,6 +1,6 @@
 :root{
     --tile: min(60px, calc((100vw - 40px) / 5));
-    --key: min(45px, calc((100vw - 40px) / 10));
+    --key: min(50px, calc((100vw - 10px) / 10));
 }
 
 body{
@@ -52,7 +52,7 @@ hr{
 .key{
     box-sizing: border-box;
     border: 2px solid lightgray;
-    width: var(--key);
+    width: calc(var(--key)*0.8);
     height: var(--key);
 
     color:black;

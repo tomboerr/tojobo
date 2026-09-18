@@ -26,6 +26,7 @@ hr{
 }
 
 .tile {
+    box-sizing: border-box;
     border: 2px solid lightgray;
     width: 60px;
     height: 60px;

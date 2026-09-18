@@ -5,7 +5,10 @@ var row = 0;
 var col = 0;
 
 var gameOver = false;
-var word = "DRAMA";
+var word = "drama";
+
+var selectWidth = "5px"
+var normalWidth = "2px"
 
 
 window.onload = function() {
@@ -22,31 +25,44 @@ function initialize() {
             document.getElementById("board").appendChild(tile);
         }
     }
+    word = word.toUpperCase();
+    getTile().style.borderWidth = selectWidth;
 
     document.addEventListener("keyup", (e) => {
         if (gameOver) return;
 
-        if ("KeyA" <= e.code && e.code <= "KeyZ") {
+        if (/^[a-zA-Z]$/.test(e.key)) {
             if (col < width){
-                let currTile = document.getElementById(row.toString() + "-" + col.toString());
+                let currTile = getTile()
+                currTile.style.borderWidth = normalWidth;
                 if (currTile.innerText == "") {
-                    currTile.innerText = e.code[3];
+                    currTile.innerText = e.key.toUpperCase();
                     col += 1;
                 }
+                let nextTile = getTile()
+                nextTile.style.borderWidth = selectWidth;
             }
         }
-        else if (e.code == "Backspace") {
+        else if (e.key == "Backspace") {
+            if (col < width){
+                let currTile = getTile()
+                currTile.style.borderWidth = normalWidth;
+            }
             if (0 < col && col <= width){
                 col -= 1;
             }
-            let currTile = document.getElementById(row.toString() + "-" + col.toString());
-            currTile.innerText = "";
+            let nextTile = getTile()
+            nextTile.innerText = "";
+            nextTile.style.borderWidth = selectWidth;
         }
-        else if (e.code == "Enter") {
+        else if (e.key == "Enter") {
             if (col == width){
                 showResult()
                 row += 1;
                 col = 0;
+                if (!gameOver && row < height) {
+                    getTile().style.borderWidth = selectWidth;
+                }
             }
         }
 
@@ -59,16 +75,29 @@ function initialize() {
 
 function showResult(){
     let correct = 0;
+    let copy = word;
+    
     for (let c = 0; c < width; c++){
         let currTile = document.getElementById(row.toString() + "-" + c.toString());
-        letter = currTile.innerText;
+        let letter = currTile.innerText;
 
         if (letter == word[c]){
             currTile.classList.add("correct");
             correct += 1;
+            copy = copy.replace(letter, "")
         }
-        else if (word.includes(letter)){
+    }
+    
+    for (let c = 0; c < width; c++){
+        let currTile = document.getElementById(row.toString() + "-" + c.toString());
+        let letter = currTile.innerText;
+        
+        if (currTile.classList.contains("correct")){
+            continue;
+        }
+        else if (copy.includes(letter)){
             currTile.classList.add("present");
+            copy = copy.replace(letter, "")
         }
         else{
             currTile.classList.add("absent");
@@ -77,4 +106,8 @@ function showResult(){
     if (correct == width){
         gameOver = true;
     }
+}
+
+function getTile(){
+    return document.getElementById(row.toString() + "-" + col.toString());
 }

@@ -5,7 +5,7 @@ var row = 0;
 var col = 0;
 
 var gameOver = false;
-var word = "breit";
+var word = getDailyWord();
 
 var selectWidth = "5px"
 var normalWidth = "2px"
@@ -94,6 +94,14 @@ function pressKey(key){
     }
     else if (key == "Enter") {
         if (col == width){
+            let guess = "";
+            for (let c = 0; c < width; c++) {
+                guess += document.getElementById(row + "-" + c).innerText;
+            }
+            if (!ALLOWED.includes(guess)) {
+                alert("Kein gültiges Wort");
+                return;
+            }
             showResult()
             row += 1;
             col = 0;
@@ -146,4 +154,15 @@ function showResult(){
 
 function getTile(){
     return document.getElementById(row.toString() + "-" + col.toString());
+}
+
+function getDailyWord(){
+    let now = new Date();
+    let today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
+    let dayNumber = Math.floor(today / 86400000);
+
+    let x = dayNumber * 2654435761 % 4294967296;
+    x = (x ^ (x >>> 16)) >>> 0;
+
+    return ANSWERS[x % ANSWERS.length];
 }

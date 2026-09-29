@@ -63,6 +63,8 @@ function initialize() {
         }
         pressKey(e.target.id);
     });
+
+    loadState();
 }
 
 function pressKey(key){
@@ -102,9 +104,11 @@ function pressKey(key){
                 alert("Kein gültiges Wort");
                 return;
             }
+            guesses.push(guess);
             showResult()
             row += 1;
             col = 0;
+            saveState();
             if (!gameOver && row < height) {
                 getTile().style.borderWidth = selectWidth;
             }

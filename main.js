@@ -124,17 +124,23 @@ function showResult(){
     for (let c = 0; c < width; c++){
         let currTile = document.getElementById(row.toString() + "-" + c.toString());
         let letter = currTile.innerText;
+        let key = document.getElementById(letter);
 
         if (letter == word[c]){
             currTile.classList.add("correct");
             correct += 1;
             copy = copy.replace(letter, "")
+            // color key green
+            key.classList.add("correct");
+            key.classList.remove("absent");
+            key.classList.remove("present");
         }
     }
     
     for (let c = 0; c < width; c++){
         let currTile = document.getElementById(row.toString() + "-" + c.toString());
         let letter = currTile.innerText;
+        let key = document.getElementById(letter);
         
         if (currTile.classList.contains("correct")){
             continue;
@@ -142,9 +148,16 @@ function showResult(){
         else if (copy.includes(letter)){
             currTile.classList.add("present");
             copy = copy.replace(letter, "")
+            if(!key.classList.contains("correct")){
+                key.classList.add("present");
+                key.classList.remove("absent");
+            }
         }
         else{
             currTile.classList.add("absent");
+            if(!key.classList.contains("correct") && !key.classList.contains("present")){
+                key.classList.add("absent");
+            }
         }
     }
     if (correct == width){

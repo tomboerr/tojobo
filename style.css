@@ -105,18 +105,19 @@ hr{
 .correct {
     background-color: #027702;
     color: white;
-    border-color: white;
 }
 
 .present {
-    background-color: #dcdc0e;
+    background-color: #bebe27;
     color: white;
-    border-color: white;
 }
 
 .absent {
     background-color: #808080;
     color: white;
+}
+
+.whiteBorder {
     border-color: white;
 }
 

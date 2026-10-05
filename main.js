@@ -171,6 +171,7 @@ function showResult(){
     }
     if (correct == width){
         gameOver = true;
+        celebrate(row);
     }
 }
 
@@ -190,12 +191,29 @@ function getDailyWord(){
 }
 
 function shakeRow(){
-    for(let i=0; i<5;i++){
+    for(let i=0; i<width;i++){
         let tile =  document.getElementById(row.toString() + "-" + i.toString());
-        if (tile.classList.contains("shake")) continue;
-        tile.classList.add("shake");
-        tile.addEventListener("animationend", () => {
-        tile.classList.remove("shake");
-        },{once:true});
+        animateTile(tile, "shake");
+    }
+}
+
+function animateTile(tile, name, delay = 0) {
+    if (tile.classList.contains(name)) return;
+    tile.style.animationDelay = delay + "ms";
+    tile.classList.add(name);
+    tile.addEventListener("animationend", () => {
+        tile.classList.remove(name);
+        tile.style.animationDelay = "";
+    }, { once: true });
+}
+
+function celebrate(winRow) {
+    let center = (width - 1) / 2;
+    for (let r = winRow; r >= 0; r--) {
+        for (let c = 0; c < width; c++) {
+            let distance = (winRow - r) + Math.abs(c - center);
+            let tile = document.getElementById(r + "-" + c);
+            animateTile(tile, "pulse", distance * 80);
+        }
     }
 }

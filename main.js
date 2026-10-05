@@ -79,7 +79,9 @@ function pressKey(key){
                 col += 1;
             }
             let nextTile = getTile()
-            nextTile.style.borderWidth = selectWidth;
+            if (col < width){
+                nextTile.style.borderWidth = selectWidth;
+            }
         }
     }
     else if (key == "Backspace") {
@@ -101,7 +103,7 @@ function pressKey(key){
                 guess += document.getElementById(row + "-" + c).innerText;
             }
             if (!ALLOWED.includes(guess)) {
-                alert("Kein gültiges Wort");
+                shakeRow();
                 return;
             }
             guesses.push(guess);
@@ -112,6 +114,9 @@ function pressKey(key){
             if (!gameOver && row < height) {
                 getTile().style.borderWidth = selectWidth;
             }
+        }
+        else{
+            shakeRow();
         }
     }
 
@@ -182,4 +187,15 @@ function getDailyWord(){
     x = (x ^ (x >>> 16)) >>> 0;
 
     return ANSWERS[x % ANSWERS.length];
+}
+
+function shakeRow(){
+    for(let i=0; i<5;i++){
+        let tile =  document.getElementById(row.toString() + "-" + i.toString());
+        if (tile.classList.contains("shake")) continue;
+        tile.classList.add("shake");
+        tile.addEventListener("animationend", () => {
+        tile.classList.remove("shake");
+        },{once:true});
+    }
 }

@@ -108,6 +108,9 @@ function pressKey(key){
             }
             guesses.push(guess);
             showResult()
+            if(gameOver){
+                celebrate(row);
+            }
             row += 1;
             col = 0;
             saveState();
@@ -171,7 +174,6 @@ function showResult(){
     }
     if (correct == width){
         gameOver = true;
-        celebrate(row);
     }
 }
 

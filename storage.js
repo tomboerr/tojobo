@@ -5,28 +5,19 @@ function todayKey() {
     return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
 }
 
-function setCookie(name, value){
-    let midnight = new Date();
-    midnight.setHours(24,0,0,0);
-    document.cookie = name + "=" + encodeURIComponent(value) + "; expires=" + midnight.toUTCString() + "; path=/; SameSite=Lax";
-}
-
-function getCookie(name){
-    let match = document.cookie.split("; ").find(c => c.startsWith(name + "="));
-    if (match) {
-        return decodeURIComponent(match.substring(name.length + 1));
-    } 
-    else {
-        return null;
-    }
-}
-
 function saveState() {
-    setCookie("wordle", JSON.stringify({ date: todayKey(), guesses: guesses }));
+    try {
+        localStorage.setItem("dewordle", JSON.stringify({ date: todayKey(), guesses: guesses }));
+    } catch (e) {}
+    
 }
 
 function loadState(){
-    let saved = getCookie("wordle");
+    let saved;
+    try{
+        saved = localStorage.getItem("dewordle");
+    } catch (e) {return;}
+
     if (!saved) return;
 
     let state;

@@ -112,6 +112,7 @@ function pressKey(key){
             showResult()
             if(gameOver){
                 celebrate(row);
+                reportResult(row + 1);
             }
             row += 1;
             col = 0;
@@ -128,6 +129,7 @@ function pressKey(key){
     if (!gameOver && row == height){
         gameOver = true;
         document.getElementById("answer").innerText = word;
+        reportResult(null);
     }
 }
 
@@ -192,6 +194,17 @@ async function loadWord() {
     } catch (e) {
         gameOver = true;
     }
+}
+
+async function reportResult(attempts){
+    try {
+        await fetch("api/result", {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({attempts:attempts})
+        });
+    }
+    catch (e){}
 }
 
 // obsolete!

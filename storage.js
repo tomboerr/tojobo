@@ -1,13 +1,8 @@
 var guesses = []
 
-function todayKey() {
-    let now = new Date();
-    return now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
-}
-
 function saveState() {
     try {
-        localStorage.setItem("dewordle", JSON.stringify({ date: todayKey(), guesses: guesses }));
+        localStorage.setItem("dewordle", JSON.stringify({ date: dayKey, guesses: guesses }));
     } catch (e) {}
     
 }
@@ -24,7 +19,7 @@ function loadState(){
     try { state = JSON.parse(saved);}
     catch (e) {return;}
 
-    if(state.date != todayKey()) return;
+    if(state.date != dayKey) return;
     
     getTile().style.borderWidth = normalWidth;
     for (let guess of state.guesses) {

@@ -5,7 +5,8 @@ var row = 0;
 var col = 0;
 
 var gameOver = false;
-var word = getDailyWord();
+var word = "";
+var dayKey = "";
 
 var selectWidth = "5px"
 var normalWidth = "2px"
@@ -16,7 +17,8 @@ var keyLayout = [
     ["Enter","Y","X","C","V","B","N","M","Backspace"]
 ]
 
-window.onload = function() {
+window.onload = async function() {
+    await loadWord();
     initialize();
 }
 
@@ -181,6 +183,18 @@ function getTile(){
     return document.getElementById(row.toString() + "-" + col.toString());
 }
 
+async function loadWord() {
+    try {
+        let response = await fetch("/api/word");
+        let data = await response.json();
+        word = data.word;
+        dayKey = data.day;
+    } catch (e) {
+        gameOver = true;
+    }
+}
+
+// obsolete!
 function getDailyWord(){
     let now = new Date();
     let today = Date.UTC(now.getFullYear(), now.getMonth(), now.getDate());
